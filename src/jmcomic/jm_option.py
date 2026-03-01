@@ -130,9 +130,9 @@ class DirRule:
     @classmethod
     def parse_f_string_rule(cls, album, photo, rule: str):
         properties = {}
-        if album:
+        if album is not None:
             properties.update(album.get_properties_dict())
-        if photo:
+        if photo is not None:
             properties.update(photo.get_properties_dict())
         return rule.format(**properties)
 
@@ -541,7 +541,7 @@ class JmOption:
                 self.invoke_plugin(pclass, kwargs, extra, pinfo)
             except BaseException as e:
                 if safe is True:
-                    traceback_print_exec()
+                    jm_log('plugin.exception', e)
                 else:
                     raise e
 
